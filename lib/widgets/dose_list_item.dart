@@ -9,13 +9,15 @@ class DoseListItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListTile(
-      title: Text(formatDateTime(_dose.dateTime)),
-      subtitle: Text(_dose.drugPlan.patient.preferredName),
-      trailing: Text(_dose.drugPlan.drug.nameAndStrength),
-      onTap: () {
-        _valueChanged.call(_dose);
-      },
+    return Card(
+      child: ListTile(
+        title: Text(formatDateTime(_dose.dateTime)),
+        subtitle: Text(_dose.drugPlan.patient.preferredName),
+        trailing: Text(_dose.drugPlan.drug.nameAndStrength),
+        onTap: () {
+          _valueChanged.call(_dose);
+        },
+      ),
     );
   }
 }
