@@ -1,7 +1,7 @@
 import 'package:app3idade_patient/models/dose.dart';
 import 'package:app3idade_patient/services/dose_service.dart';
 import 'package:app3idade_patient/widgets/dose_list.dart';
-import 'package:app3idade_patient/widgets/drug_display.dart';
+import 'package:app3idade_patient/widgets/dose_display.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget {
@@ -54,9 +54,14 @@ class _HomePageState extends State<HomePage> {
                 flex: 4,
                 child: DoseList(
                   _doses,
-                  (Dose selectedDose) => setState(() {
-                    _selectedDose = selectedDose;
-                  }),
+                  selectedDoseChanged: (dose) {
+                    setState(() {
+                      _selectedDose = dose;
+                    });
+                  },
+                  refreshRequested: (value) async {
+                    await _loadData();
+                  },
                 ),
               ),
               const SizedBox(width: _padding),

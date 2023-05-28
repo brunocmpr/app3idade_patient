@@ -36,10 +36,7 @@ class DoseDisplay extends StatelessWidget {
             if (_dose!.drugPlan.drug.instructions != null)
               Html(
                 data: _dose!.drugPlan.drug.instructions,
-                style: {
-                  "body":
-                      Style(fontSize: const FontSize(_htmlBodySize)), // Increase the font size as per your preference
-                },
+                style: {"body": Style(fontSize: const FontSize(_htmlBodySize))},
               ),
           ],
         ));

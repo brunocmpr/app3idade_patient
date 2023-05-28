@@ -4,8 +4,9 @@ import 'package:flutter/material.dart';
 
 class DoseList extends StatelessWidget {
   final List<Dose>? _doses;
-  final ValueChanged<Dose> _valueChanged;
-  const DoseList(this._doses, this._valueChanged, {super.key});
+  final ValueChanged<Dose> selectedDoseChanged;
+  final ValueChanged<void> refreshRequested;
+  const DoseList(this._doses, {super.key, required this.selectedDoseChanged, required this.refreshRequested});
 
   @override
   Widget build(BuildContext context) {
@@ -17,11 +18,14 @@ class DoseList extends StatelessWidget {
 
     return Container(
       decoration: BoxDecoration(color: Colors.grey.shade200),
-      child: ListView.builder(
-        itemCount: _doses!.length,
-        itemBuilder: (context, index) {
-          return DoseListItem(_doses![index], _valueChanged);
-        },
+      child: RefreshIndicator(
+        onRefresh: () async => refreshRequested(null),
+        child: ListView.builder(
+          itemCount: _doses!.length,
+          itemBuilder: (context, index) {
+            return DoseListItem(_doses![index], selectedDoseChanged);
+          },
+        ),
       ),
     );
   }
