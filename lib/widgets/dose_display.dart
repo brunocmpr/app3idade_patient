@@ -34,30 +34,34 @@ class DoseDisplay extends StatelessWidget {
       );
     }
     return Container(
-        decoration: BoxDecoration(color: Colors.grey.shade300),
-        padding: const EdgeInsets.all(16),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(
-              "${_dose!.drugPlan.drug.name} - ${_dose!.drugPlan.patient.preferredName}",
-              style: const TextStyle(fontSize: _titleSize),
-            ),
-            if (_dose!.drugPlan.drug.imageIds != null && _dose!.drugPlan.drug.imageIds!.isNotEmpty)
-              const SizedBox(height: 16),
-            if (_dose!.drugPlan.drug.imageIds != null && _dose!.drugPlan.drug.imageIds!.isNotEmpty)
-              Wrap(
-                spacing: 8.0,
-                runSpacing: 8.0,
-                children: _dose!.drugPlan.drug.imageIds!.asMap().entries.map(buildThumbnail).toList(),
-              ),
+      decoration: BoxDecoration(color: Colors.grey.shade300),
+      padding: const EdgeInsets.all(16),
+      child: Column(
+        children: [
+          Text(
+            "${_dose!.drugPlan.drug.name} - ${_dose!.drugPlan.patient.preferredName}",
+            style: const TextStyle(fontSize: _titleSize),
+          ),
+          if (_dose!.drugPlan.drug.imageIds != null && _dose!.drugPlan.drug.imageIds!.isNotEmpty)
             const SizedBox(height: 16),
-            if (_dose!.drugPlan.drug.instructions != null)
-              Html(
-                data: _dose!.drugPlan.drug.instructions,
-                style: {"body": Style(fontSize: const FontSize(_htmlBodySize))},
+          if (_dose!.drugPlan.drug.imageIds != null && _dose!.drugPlan.drug.imageIds!.isNotEmpty)
+            Wrap(
+              spacing: 8.0,
+              runSpacing: 8.0,
+              children: _dose!.drugPlan.drug.imageIds!.asMap().entries.map(buildThumbnail).toList(),
+            ),
+          const SizedBox(height: 16),
+          if (_dose!.drugPlan.drug.instructions != null)
+            Expanded(
+              child: SingleChildScrollView(
+                child: Html(
+                  data: _dose!.drugPlan.drug.instructions,
+                  style: {"body": Style(fontSize: const FontSize(_htmlBodySize))},
+                ),
               ),
-          ],
-        ));
+            ),
+        ],
+      ),
+    );
   }
 }
