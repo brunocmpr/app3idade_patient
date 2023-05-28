@@ -62,7 +62,7 @@ class _HomePageState extends State<HomePage> {
               const SizedBox(width: _padding),
               Expanded(
                 flex: 6,
-                child: DrugDisplay(_selectedDose),
+                child: DoseDisplay(_selectedDose),
               )
             ],
           ),
