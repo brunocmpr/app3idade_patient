@@ -29,9 +29,9 @@ class DoseListItem extends StatelessWidget {
     }
     return Card(
       child: ListTile(
-        title: Text(formatDateTime(_dose.dateTime)),
-        subtitle: Text(_dose.drugPlan.patient.preferredName),
-        trailing: Text(_dose.drugPlan.drug.nameAndStrength),
+        title: Text(formatDateTime(_dose.dateTime), style: const TextStyle(fontSize: 18, color: Colors.black)),
+        subtitle: Text(_dose.drugPlan.patient.preferredName, style: const TextStyle(fontSize: 18, color: Colors.black)),
+        trailing: Text(_dose.drugPlan.drug.nameAndStrength, style: const TextStyle(fontSize: 18, color: Colors.black)),
         onTap: () {
           _valueChanged.call(_dose);
         },
