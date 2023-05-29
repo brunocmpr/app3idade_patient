@@ -4,13 +4,13 @@ import 'package:flutter/material.dart';
 class NetworkImageService {
   final baseUri = '/images';
 
-  Image createImageWidget(MapEntry<int, int> entry) {
+  Image createImageWidget(int imageId, {double? height, double? width, BoxFit? fit}) {
     return Image.network(
-      buildFullUrl(entry.value),
+      buildFullUrl(imageId),
       headers: API.headerAuthorization,
-      width: 100,
-      height: 100,
-      fit: BoxFit.contain,
+      width: width,
+      height: height,
+      fit: fit,
     );
   }
 

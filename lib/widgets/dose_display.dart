@@ -19,7 +19,7 @@ class DoseDisplay extends StatelessWidget {
       decoration: BoxDecoration(
         border: Border.all(color: Colors.black),
       ),
-      child: networkImageService.createImageWidget(entry),
+      child: networkImageService.createImageWidget(entry.value, height: 100, width: 100, fit: BoxFit.contain),
     );
   }
 
