@@ -14,27 +14,35 @@ class DoseListItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Widget profilePicture;
+    const photoSize = 64.0;
     if (_dose.drugPlan.patient.imageIds != null && _dose.drugPlan.patient.imageIds!.isNotEmpty) {
       profilePicture = networkImageService.createImageWidget(
         _dose.drugPlan.patient.imageIds!.asMap().entries.first.value,
-        height: 100,
-        width: 100,
+        height: photoSize,
+        width: photoSize,
         fit: BoxFit.cover,
       );
     } else {
-      profilePicture = const Placeholder(
-        fallbackHeight: 100,
-        fallbackWidth: 100,
-      );
+      profilePicture = const Icon(Icons.account_box, size: photoSize, color: Colors.grey);
     }
     return Card(
-      child: ListTile(
-        title: Text(formatDateTime(_dose.dateTime), style: const TextStyle(fontSize: 18, color: Colors.black)),
-        subtitle: Text(_dose.drugPlan.patient.preferredName, style: const TextStyle(fontSize: 18, color: Colors.black)),
-        trailing: Text(_dose.drugPlan.drug.nameAndStrength, style: const TextStyle(fontSize: 18, color: Colors.black)),
-        onTap: () {
-          _valueChanged.call(_dose);
-        },
+      child: Row(
+        children: [
+          const SizedBox(width: 4),
+          profilePicture,
+          Expanded(
+            child: ListTile(
+              title: Text(formatDateTime(_dose.dateTime), style: const TextStyle(fontSize: 18, color: Colors.black)),
+              subtitle:
+                  Text(_dose.drugPlan.patient.preferredName, style: const TextStyle(fontSize: 20, color: Colors.black)),
+              trailing:
+                  Text(_dose.drugPlan.drug.nameAndStrength, style: const TextStyle(fontSize: 19, color: Colors.black)),
+              onTap: () {
+                _valueChanged.call(_dose);
+              },
+            ),
+          ),
+        ],
       ),
     );
   }
