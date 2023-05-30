@@ -3,6 +3,7 @@ import 'package:app3idade_patient/models/patient.dart';
 import 'package:app3idade_patient/models/drug.dart';
 import 'package:app3idade_patient/models/patient.dart';
 import 'package:app3idade_patient/services/network_image_service.dart';
+import 'package:app3idade_patient/views/image_hero_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
 
@@ -14,12 +15,28 @@ class DoseDisplay extends StatelessWidget {
 
   DoseDisplay(this._dose, {super.key});
 
-  Widget buildThumbnail(MapEntry<int, int> entry) {
-    return Container(
-      decoration: BoxDecoration(
-        border: Border.all(color: Colors.black),
+  Widget buildThumbnail(MapEntry<int, int> entry, BuildContext context) {
+    return GestureDetector(
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (_) => ImageHeroPage(
+              imageId: entry.value,
+              tag: 'image_${entry.key}',
+            ),
+          ),
+        );
+      },
+      child: Hero(
+        tag: 'image_${entry.key}',
+        child: Container(
+          decoration: BoxDecoration(
+            border: Border.all(color: Colors.black),
+          ),
+          child: networkImageService.createImageWidget(entry.value, height: 100, width: 100, fit: BoxFit.contain),
+        ),
       ),
-      child: networkImageService.createImageWidget(entry.value, height: 100, width: 100, fit: BoxFit.contain),
     );
   }
 
@@ -48,7 +65,11 @@ class DoseDisplay extends StatelessWidget {
             Wrap(
               spacing: 8.0,
               runSpacing: 8.0,
-              children: _dose!.drugPlan.drug.imageIds!.asMap().entries.map(buildThumbnail).toList(),
+              children: _dose!.drugPlan.drug.imageIds!
+                  .asMap()
+                  .entries
+                  .map((entry) => buildThumbnail(entry, context))
+                  .toList(),
             ),
           const SizedBox(height: 16),
           if (_dose!.drugPlan.drug.instructions != null)
