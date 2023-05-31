@@ -21,7 +21,7 @@ class _HomePageState extends State<HomePage> {
   Dose? _selectedDose;
   static const double _padding = 16;
   static const int _refreshIntervalMinutes = 10;
-  late Timer _timer;
+  late Timer _timer = Timer.periodic(const Duration(minutes: _refreshIntervalMinutes), (Timer t) => _loadData());
 
   @override
   void initState() {
@@ -50,6 +50,7 @@ class _HomePageState extends State<HomePage> {
   }
 
   void startTimer() {
+    if (_timer.isActive) return;
     _timer = Timer.periodic(const Duration(minutes: _refreshIntervalMinutes), (Timer t) => _loadData());
   }
 
