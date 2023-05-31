@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:app3idade_patient/models/dose.dart';
 import 'package:app3idade_patient/services/dose_service.dart';
 import 'package:app3idade_patient/widgets/dose_list.dart';
@@ -18,6 +20,8 @@ class _HomePageState extends State<HomePage> {
   List<Dose>? _doses;
   Dose? _selectedDose;
   static const double _padding = 16;
+  static const int _refreshIntervalMinutes = 10;
+  late Timer _timer;
 
   @override
   void initState() {
@@ -26,6 +30,13 @@ class _HomePageState extends State<HomePage> {
     if (_doses != null && _doses!.isNotEmpty) {
       _selectedDose = _doses![0];
     }
+    startTimer();
+  }
+
+  @override
+  void dispose() {
+    _timer.cancel();
+    super.dispose();
   }
 
   Future<void> _loadData() async {
@@ -36,6 +47,10 @@ class _HomePageState extends State<HomePage> {
         _selectedDose = _doses![0];
       }
     });
+  }
+
+  void startTimer() {
+    _timer = Timer.periodic(const Duration(minutes: _refreshIntervalMinutes), (Timer t) => _loadData());
   }
 
   @override
@@ -60,7 +75,9 @@ class _HomePageState extends State<HomePage> {
                     });
                   },
                   refreshRequested: (value) async {
+                    _timer.cancel();
                     await _loadData();
+                    startTimer();
                   },
                 ),
               ),
