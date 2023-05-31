@@ -3,10 +3,9 @@ import 'package:flutter/material.dart';
 
 class ImageHeroPage extends StatelessWidget {
   final int imageId;
-  final String tag;
   final networkImageService = NetworkImageService();
 
-  ImageHeroPage({super.key, required this.imageId, required this.tag});
+  ImageHeroPage({super.key, required this.imageId});
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +18,7 @@ class ImageHeroPage extends StatelessWidget {
           color: Colors.transparent,
           alignment: Alignment.center,
           child: Hero(
-            tag: tag,
+            tag: imageId,
             child: networkImageService.createImageWidget(imageId, fit: BoxFit.contain),
           ),
         ),

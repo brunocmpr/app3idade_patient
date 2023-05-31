@@ -2,6 +2,7 @@ import 'package:app3idade_patient/models/dose.dart';
 import 'package:app3idade_patient/models/patient.dart';
 import 'package:app3idade_patient/models/drug.dart';
 import 'package:app3idade_patient/models/patient.dart';
+import 'package:app3idade_patient/routes/routes.dart';
 import 'package:app3idade_patient/services/network_image_service.dart';
 import 'package:app3idade_patient/views/image_hero_page.dart';
 import 'package:flutter/material.dart';
@@ -18,18 +19,14 @@ class DoseDisplay extends StatelessWidget {
   Widget buildThumbnail(MapEntry<int, int> entry, BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Navigator.push(
+        Navigator.pushNamed(
           context,
-          MaterialPageRoute(
-            builder: (_) => ImageHeroPage(
-              imageId: entry.value,
-              tag: 'image_${entry.key}',
-            ),
-          ),
+          Routes.imageHeroPage,
+          arguments: entry.value,
         );
       },
       child: Hero(
-        tag: 'image_${entry.key}',
+        tag: entry.value,
         child: Container(
           decoration: BoxDecoration(
             border: Border.all(color: Colors.black),
