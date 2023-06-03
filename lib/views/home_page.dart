@@ -31,7 +31,7 @@ class _HomePageState extends State<HomePage> {
   final List<Dose> _alertDoses = [];
   Timer? _alertTimer;
   final _audioPlayer = AudioPlayer();
-  bool _isAudioPlaying = false;
+  bool _isAlertState = false;
   static const _alertAudioPath = 'audios/alert.wav';
 
   @override
@@ -85,20 +85,20 @@ class _HomePageState extends State<HomePage> {
   void _executeAlert() {
     if (_doses == null) return;
     pushDosesToAlertQueue();
-    playAlertAudio();
+    _startAlert();
   }
 
-  void playAlertAudio() {
+  void _startAlert() {
     _audioPlayer.play(AssetSource(_alertAudioPath));
     setState(() {
-      _isAudioPlaying = true;
+      _isAlertState = true;
     });
   }
 
-  void _stopAudio() {
+  void _stopAlert() {
     _audioPlayer.stop();
     setState(() {
-      _isAudioPlaying = false;
+      _isAlertState = false;
     });
   }
 
@@ -156,18 +156,65 @@ class _HomePageState extends State<HomePage> {
             children: [
               Expanded(
                 flex: 4,
-                child: DoseList(
-                  _doses,
-                  selectedDoseChanged: (dose) {
-                    setState(() {
-                      _selectedDose = dose;
-                    });
-                  },
-                  refreshRequested: (value) async {
-                    _refreshTimer.cancel();
-                    await _loadData();
-                    _startTimer();
-                  },
+                child: Column(
+                  children: [
+                    Visibility(
+                      visible: _isAlertState,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          const Text(
+                            'Hora dos medicamentos!',
+                            style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                          ),
+                          IconButton(
+                            iconSize: 60,
+                            onPressed: () {
+                              _stopAlert();
+                            },
+                            icon: const Icon(Icons.alarm_rounded),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Visibility(
+                      visible: !_isAlertState && _alertDoses.isNotEmpty,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          Container(
+                            constraints: const BoxConstraints(maxWidth: 350),
+                            child: const Text(
+                              'Estes são os medicamentos que você deve tomar agora:',
+                              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                            ),
+                          ),
+                          IconButton(
+                            iconSize: 60,
+                            onPressed: () {
+                              _alertDoses.clear();
+                            },
+                            icon: const Icon(Icons.done),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Expanded(
+                      child: DoseList(
+                        _alertDoses.isEmpty ? _doses : _alertDoses,
+                        selectedDoseChanged: (dose) {
+                          setState(() {
+                            _selectedDose = dose;
+                          });
+                        },
+                        refreshRequested: (value) async {
+                          _refreshTimer.cancel();
+                          await _loadData();
+                          _startTimer();
+                        },
+                      ),
+                    ),
+                  ],
                 ),
               ),
               const SizedBox(width: _padding),
