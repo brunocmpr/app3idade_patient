@@ -6,6 +6,7 @@ import 'package:app3idade_patient/services/dose_service.dart';
 import 'package:app3idade_patient/util/util.dart';
 import 'package:app3idade_patient/widgets/dose_list.dart';
 import 'package:app3idade_patient/widgets/dose_display.dart';
+import 'package:app3idade_patient/widgets/animated_icon_button.dart';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 
@@ -163,16 +164,18 @@ class _HomePageState extends State<HomePage> {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
-                          const Text(
-                            'Hora dos medicamentos!',
-                            style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                          Text(
+                            'Hora do lembrete!\nSão ${_alertDoses.length} medicamentos:',
+                            style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
                           ),
-                          IconButton(
-                            iconSize: 60,
+                          AnimatedIconButton(
+                            iconSize: 80,
                             onPressed: () {
                               _stopAlert();
                             },
-                            icon: const Icon(Icons.alarm_rounded),
+                            startColor: Colors.yellow,
+                            endColor: Colors.red,
+                            icon: Icons.alarm_rounded,
                           ),
                         ],
                       ),
@@ -199,6 +202,7 @@ class _HomePageState extends State<HomePage> {
                         ],
                       ),
                     ),
+                    Visibility(visible: _alertDoses.isNotEmpty, child: const SizedBox(height: 16.0)),
                     Expanded(
                       child: DoseList(
                         _alertDoses.isEmpty ? _doses : _alertDoses,
