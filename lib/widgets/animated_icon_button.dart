@@ -4,6 +4,7 @@ class AnimatedIconButton extends StatefulWidget {
   final double iconSize;
   final Color startColor;
   final Color endColor;
+  final Color iconColor;
   final IconData icon;
   final VoidCallback onPressed;
 
@@ -14,6 +15,7 @@ class AnimatedIconButton extends StatefulWidget {
     required this.endColor,
     required this.icon,
     required this.onPressed,
+    this.iconColor = Colors.black,
   }) : super(key: key);
 
   @override
@@ -58,7 +60,7 @@ class _AnimatedIconButtonState extends State<AnimatedIconButton> with SingleTick
               iconSize: widget.iconSize - 16,
               icon: Icon(widget.icon),
               onPressed: widget.onPressed,
-              color: Colors.black,
+              color: widget.iconColor,
             ),
           ),
         );

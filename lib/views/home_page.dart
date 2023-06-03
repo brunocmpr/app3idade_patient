@@ -164,18 +164,21 @@ class _HomePageState extends State<HomePage> {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
-                          Text(
-                            'Hora do lembrete!\nSão ${_alertDoses.length} medicamentos:',
-                            style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                          const Expanded(
+                            child: const Text(
+                              'Lembrete de horário! Para desligar o alarme, pressione o botão',
+                              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                            ),
                           ),
                           AnimatedIconButton(
                             iconSize: 80,
                             onPressed: () {
                               _stopAlert();
                             },
-                            startColor: Colors.yellow,
-                            endColor: Colors.red,
+                            startColor: Colors.yellow.shade800,
+                            endColor: Colors.red.shade700,
                             icon: Icons.alarm_rounded,
+                            iconColor: Colors.white,
                           ),
                         ],
                       ),
@@ -187,17 +190,22 @@ class _HomePageState extends State<HomePage> {
                         children: [
                           Container(
                             constraints: const BoxConstraints(maxWidth: 350),
-                            child: const Text(
-                              'Estes são os medicamentos que você deve tomar agora:',
-                              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                            child: Text(
+                              'Após tomar o${_alertDoses.length > 1 ? 's' : ''}'
+                              ' ${_alertDoses.length > 1 ? _alertDoses.length : ''}'
+                              ' medicamento${_alertDoses.length > 1 ? 's' : ''} abaixo, pressione o botão:',
+                              style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
                             ),
                           ),
-                          IconButton(
-                            iconSize: 60,
+                          AnimatedIconButton(
+                            iconSize: 80,
                             onPressed: () {
                               _alertDoses.clear();
                             },
-                            icon: const Icon(Icons.done),
+                            startColor: Colors.green.shade500,
+                            endColor: Colors.green.shade800,
+                            iconColor: Colors.white,
+                            icon: Icons.done,
                           ),
                         ],
                       ),
