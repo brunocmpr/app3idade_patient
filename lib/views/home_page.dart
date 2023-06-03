@@ -107,6 +107,7 @@ class _HomePageState extends State<HomePage> {
     setState(() {
       final matchingDoses = _doses!.where((dose) => dose.dateTime.isAtSameMomentAs(_doses![0].dateTime)).toList();
       _alertDoses.addAll(matchingDoses);
+      _selectedDose = _alertDoses[0];
       _doses!.removeWhere((dose) => matchingDoses.contains(dose));
     });
   }
@@ -165,7 +166,7 @@ class _HomePageState extends State<HomePage> {
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
                           const Expanded(
-                            child: const Text(
+                            child: Text(
                               'Lembrete de horário! Para desligar o alarme, pressione o botão',
                               style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
                             ),
@@ -200,7 +201,7 @@ class _HomePageState extends State<HomePage> {
                           AnimatedIconButton(
                             iconSize: 80,
                             onPressed: () {
-                              _alertDoses.clear();
+                              clearAlertDoses();
                             },
                             startColor: Colors.green.shade500,
                             endColor: Colors.green.shade800,
@@ -239,5 +240,16 @@ class _HomePageState extends State<HomePage> {
         ),
       ),
     );
+  }
+
+  void clearAlertDoses() {
+    _alertDoses.clear();
+    setState(() {
+      if (_doses!.isNotEmpty) {
+        _selectedDose = _doses![0];
+      } else {
+        _selectedDose = null;
+      }
+    });
   }
 }
