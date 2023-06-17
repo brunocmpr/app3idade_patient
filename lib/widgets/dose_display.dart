@@ -45,7 +45,7 @@ class DoseDisplay extends StatelessWidget {
       return Container(
         decoration: BoxDecoration(color: Colors.grey.shade300),
         child: const Center(
-          child: Text('Nenhum medicamento selecionado'),
+          child: Text('Nenhum medicamento selecionado', style: TextStyle(fontSize: 20, color: Colors.black)),
         ),
       );
     }
