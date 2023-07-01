@@ -167,7 +167,7 @@ class _HomePageState extends State<HomePage> {
                         children: [
                           const Expanded(
                             child: Text(
-                              'Lembrete de horário! Para desligar o alarme, pressione o botão',
+                              'Lembrete de horário! Para desligar o alarme, pressione o botão:',
                               style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
                             ),
                           ),

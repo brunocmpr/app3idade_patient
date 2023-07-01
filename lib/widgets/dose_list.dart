@@ -13,7 +13,28 @@ class DoseList extends StatelessWidget {
     if (_doses == null) {
       return const Center(child: CircularProgressIndicator());
     } else if (_doses!.isEmpty) {
-      return const Center(child: Text('Nenhuma dose para as próximas horas.'));
+      return Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          const Text('Nenhuma dose para as próximas horas.', style: TextStyle(fontSize: 20, color: Colors.black)),
+          const SizedBox(height: 16),
+          ElevatedButton(
+            onPressed: () => refreshRequested(null),
+            child: SizedBox(
+              width: 200,
+              height: 80,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: const [
+                  Icon(Icons.refresh),
+                  SizedBox(width: 8),
+                  Text('Atualizar', style: TextStyle(fontSize: 20)),
+                ],
+              ),
+            ),
+          ),
+        ],
+      );
     }
 
     return Container(
