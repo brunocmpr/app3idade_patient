@@ -144,8 +144,38 @@ class _HomePageState extends State<HomePage> {
             Center(child: Text('${_getGreetings()}! ${_currentDateTime ?? ''}', style: const TextStyle(fontSize: 24))),
         actions: [
           IconButton(
-            onPressed: () {
-              _authService.logoutAndGoToLogin(context);
+            onPressed: () async {
+              final navigator = Navigator.of(context);
+              bool? logoutConfirmed = await showDialog<bool>(
+                context: context,
+                builder: (context) => AlertDialog(
+                  title: const Text('Atenção!', style: TextStyle(fontSize: 26)),
+                  content: const Text('Tem certeza que deseja sair do Terceira Idade Fácil?',
+                      style: TextStyle(fontSize: 26)),
+                  actions: [
+                    ElevatedButton(
+                      style: const ButtonStyle(backgroundColor: MaterialStatePropertyAll<Color>(Colors.green)),
+                      onPressed: () => Navigator.of(context).pop(false),
+                      child: const Padding(
+                        padding: EdgeInsets.all(30.0),
+                        child: Text('Não', style: TextStyle(fontSize: 26)),
+                      ),
+                    ),
+                    ElevatedButton(
+                      style: const ButtonStyle(backgroundColor: MaterialStatePropertyAll<Color>(Colors.red)),
+                      onPressed: () => Navigator.of(context).pop(true),
+                      child: const Padding(
+                        padding: EdgeInsets.all(30.0),
+                        child: Text('Sim', style: TextStyle(fontSize: 26)),
+                      ),
+                    ),
+                  ],
+                ),
+              );
+
+              if (logoutConfirmed == true) {
+                _authService.logoutAndGoToLogin(navigator);
+              }
             },
             icon: const Icon(Icons.logout),
           ),
