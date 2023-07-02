@@ -12,7 +12,7 @@ class DoseDisplay extends StatelessWidget {
   final networkImageService = NetworkImageService();
   final Dose? _dose;
   static const _titleSize = 30.0;
-  static const _htmlBodySize = 24.0;
+  static const _htmlBodySize = 28.0;
   static const _thumbnailSize = 100.0;
 
   DoseDisplay(this._dose, {super.key});

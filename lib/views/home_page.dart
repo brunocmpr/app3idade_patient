@@ -140,7 +140,8 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Center(child: Text('${_getGreetings()}! ${_currentDateTime ?? ''}')),
+        title:
+            Center(child: Text('${_getGreetings()}! ${_currentDateTime ?? ''}', style: const TextStyle(fontSize: 24))),
         actions: [
           IconButton(
             onPressed: () {
@@ -157,7 +158,7 @@ class _HomePageState extends State<HomePage> {
           child: Row(
             children: [
               Expanded(
-                flex: 4,
+                flex: 7,
                 child: Column(
                   children: [
                     Visibility(
@@ -168,7 +169,7 @@ class _HomePageState extends State<HomePage> {
                           const Expanded(
                             child: Text(
                               'Lembrete de horário! Para desligar o alarme, pressione o botão:',
-                              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                              style: TextStyle(fontSize: 26, fontWeight: FontWeight.bold),
                             ),
                           ),
                           AnimatedIconButton(
@@ -195,7 +196,7 @@ class _HomePageState extends State<HomePage> {
                               'Após tomar o${_alertDoses.length > 1 ? 's' : ''}'
                               ' ${_alertDoses.length > 1 ? _alertDoses.length : ''}'
                               ' medicamento${_alertDoses.length > 1 ? 's' : ''} abaixo, pressione o botão:',
-                              style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                              style: const TextStyle(fontSize: 26, fontWeight: FontWeight.bold),
                             ),
                           ),
                           AnimatedIconButton(
@@ -232,7 +233,7 @@ class _HomePageState extends State<HomePage> {
               ),
               const SizedBox(width: _padding),
               Expanded(
-                flex: 6,
+                flex: 8,
                 child: DoseDisplay(_selectedDose),
               )
             ],
