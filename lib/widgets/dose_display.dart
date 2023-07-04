@@ -72,10 +72,12 @@ class DoseDisplay extends StatelessWidget {
                     Text(
                       _dose!.drugPlan.drug.nameAndStrength,
                       style: const TextStyle(fontSize: _titleSize),
+                      textAlign: TextAlign.center,
                     ),
                     Text(
                       _dose!.drugPlan.patient.preferredName,
                       style: const TextStyle(fontSize: _titleSize),
+                      textAlign: TextAlign.center,
                     ),
                     if (_dose!.drugPlan.drug.imageIds != null && _dose!.drugPlan.drug.imageIds!.isNotEmpty)
                       const SizedBox(height: 16),
@@ -89,6 +91,8 @@ class DoseDisplay extends StatelessWidget {
                             .map((entry) => buildHeroThumbnail(entry.value, context))
                             .toList(),
                       ),
+                    if (_dose!.drugPlan.drug.imageIds == null || _dose!.drugPlan.drug.imageIds!.isEmpty)
+                      const SizedBox(height: 80),
                   ],
                 ),
               ),
