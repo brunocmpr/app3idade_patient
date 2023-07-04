@@ -31,7 +31,7 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Login'),
+        title: const Text('Login', style: TextStyle(fontSize: 28)),
       ),
       body: Form(
         key: _formKey,
@@ -42,7 +42,7 @@ class _LoginPageState extends State<LoginPage> {
             children: <Widget>[
               TextFormField(
                 controller: _emailController,
-                decoration: const InputDecoration(labelText: 'Email'),
+                decoration: const InputDecoration(labelText: 'Email', labelStyle: TextStyle(fontSize: 28)),
                 validator: (value) {
                   if (value!.isEmpty) {
                     return 'Preencha o email';
@@ -52,7 +52,7 @@ class _LoginPageState extends State<LoginPage> {
               ),
               TextFormField(
                 controller: _passwordController,
-                decoration: const InputDecoration(labelText: 'Senha'),
+                decoration: const InputDecoration(labelText: 'Senha', labelStyle: TextStyle(fontSize: 28)),
                 obscureText: true,
                 validator: (value) {
                   if (value!.isEmpty) {
@@ -64,10 +64,14 @@ class _LoginPageState extends State<LoginPage> {
               const SizedBox(height: 16),
               ElevatedButton(
                 onPressed: _isLoading ? null : () => _submit(context),
-                child: const Text('Entrar'),
+                child: const Padding(
+                  padding: EdgeInsets.all(30.0),
+                  child: Text('Entrar', style: TextStyle(fontSize: 28)),
+                ),
               ),
               const SizedBox(height: 16),
-              const Text('Não tem uma conta? Baixe o aplicativo de cuidador para gerenciar os tratamentos.'),
+              const Text('Não tem uma conta? Baixe o aplicativo de cuidador para gerenciar os tratamentos.',
+                  style: TextStyle(fontSize: 24)),
             ],
           ),
         ),

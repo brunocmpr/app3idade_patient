@@ -32,16 +32,16 @@ class DoseListItem extends StatelessWidget {
           profilePicture,
           Expanded(
             child: ListTile(
-              title: Text(formatDateTime(_dose.dateTime), style: const TextStyle(fontSize: 18, color: Colors.black)),
+              title: Text(formatDateTime(_dose.dateTime), style: const TextStyle(fontSize: 24, color: Colors.black)),
               subtitle:
-                  Text(_dose.drugPlan.patient.preferredName, style: const TextStyle(fontSize: 20, color: Colors.black)),
+                  Text(_dose.drugPlan.patient.preferredName, style: const TextStyle(fontSize: 24, color: Colors.black)),
               trailing: Container(
-                constraints: const BoxConstraints(maxWidth: 200),
+                constraints: const BoxConstraints(maxWidth: 280),
                 child: Text(
                   _dose.drugPlan.drug.nameAndStrength,
                   maxLines: 2,
                   overflow: TextOverflow.ellipsis,
-                  style: const TextStyle(fontSize: 19, color: Colors.black),
+                  style: const TextStyle(fontSize: 24, color: Colors.black),
                 ),
               ),
               onTap: () => _valueChanged.call(_dose),

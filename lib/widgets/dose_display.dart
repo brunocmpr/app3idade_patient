@@ -12,8 +12,8 @@ class DoseDisplay extends StatelessWidget {
   final networkImageService = NetworkImageService();
   final Dose? _dose;
   static const _titleSize = 30.0;
-  static const _htmlBodySize = 24.0;
-  static const _thumbnailSize = 100.0;
+  static const _htmlBodySize = 28.0;
+  static const _thumbnailSize = 160.0;
 
   DoseDisplay(this._dose, {super.key});
 
@@ -45,7 +45,7 @@ class DoseDisplay extends StatelessWidget {
       return Container(
         decoration: BoxDecoration(color: Colors.grey.shade300),
         child: const Center(
-          child: Text('Nenhum medicamento selecionado', style: TextStyle(fontSize: 20, color: Colors.black)),
+          child: Text('Nenhum medicamento selecionado', style: TextStyle(fontSize: _htmlBodySize, color: Colors.black)),
         ),
       );
     }
@@ -70,7 +70,11 @@ class DoseDisplay extends StatelessWidget {
                 child: Column(
                   children: [
                     Text(
-                      "${_dose!.drugPlan.drug.name} - ${_dose!.drugPlan.patient.preferredName}",
+                      _dose!.drugPlan.drug.nameAndStrength,
+                      style: const TextStyle(fontSize: _titleSize),
+                    ),
+                    Text(
+                      _dose!.drugPlan.patient.preferredName,
                       style: const TextStyle(fontSize: _titleSize),
                     ),
                     if (_dose!.drugPlan.drug.imageIds != null && _dose!.drugPlan.drug.imageIds!.isNotEmpty)
