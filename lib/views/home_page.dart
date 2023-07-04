@@ -9,6 +9,7 @@ import 'package:app3idade_patient/widgets/dose_display.dart';
 import 'package:app3idade_patient/widgets/animated_icon_button.dart';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
+import 'package:wakelock/wakelock.dart';
 
 class HomePage extends StatefulWidget {
   final String token;
@@ -38,6 +39,7 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
+    Wakelock.enable();
     _updateDateTime();
     _loadData();
     if (_doses != null && _doses!.isNotEmpty) {
@@ -54,6 +56,7 @@ class _HomePageState extends State<HomePage> {
 
   @override
   void dispose() {
+    Wakelock.disable();
     _refreshTimer.cancel();
     _alertTimer?.cancel();
     _audioPlayer.release();
